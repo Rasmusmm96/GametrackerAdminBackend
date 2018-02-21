@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>GameTracker API</title>
+</head>
+<style>
+    .card {
+        margin: 15px;
+    }
+</style>
+<body>
+<h1 style="margin: 15px;">GameTracker Admin API</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">POST /games/add/{title}/{developer}/{publisher}/{release_date}</h5>
+        <p class="card-text">Returns: A boolean, true if the game was created, false if it failed.</p>
+        <p class="card-text">Inputs:</p>
+        <ul>
+            <li>title: The title of the game to add.</li>
+            <li>developer: The developer of the game to add.</li>
+            <li>publisher: The publisher of the game to add.</li>
+            <li>release_date: The release date of the game to add.</li>
+        </ul>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">PUT /games/update/{id}/{title}/{developer}/{publisher}/{release_date}</h5>
+        <p class="card-text">Returns: A boolean, true if the game was updated, false if it failed.</p>
+        <p class="card-text">Inputs:</p>
+        <ul>
+            <li>id: The id of the game to update.</li>
+            <li>title: The updated title.</li>
+            <li>developer: The updated developer.</li>
+            <li>publisher: The updated publisher.</li>
+            <li>release_date: The updated release date.</li>
+        </ul>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">DELETE /games/delete/{id}</h5>
+        <p class="card-text">Returns: A boolean, true if the game was deleted, false if it failed.</p>
+        <p class="card-text">Inputs:</p>
+        <ul>
+            <li>id: The id of the game to delete.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
