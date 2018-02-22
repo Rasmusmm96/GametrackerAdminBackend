@@ -19,8 +19,26 @@
 <h1 style="margin: 15px;">GameTracker Admin API</h1>
 <div class="card">
     <div class="card-body">
+        <h5 class="card-title">GET /admin/login</h5>
+        <p class="card-text">Returns: A token in JSON format</p>
+        <p class="card-text">Usage: Append a Authorization header with Basic Auth.</p>
+        <p class="card-text">Inputs: None</p>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">POST /admin/add/</h5>
+        <p class="card-text">Returns: A boolean, true if the admin was created, false if it failed.</p>
+        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
+        <p class="card-text">Usage: Append a Authorization header with Basic Auth of the admin to be added.</p>
+        <p class="card-text">Inputs: None</p>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
         <h5 class="card-title">POST /games/add/{title}/{developer}/{publisher}/{release_date}</h5>
         <p class="card-text">Returns: A boolean, true if the game was created, false if it failed.</p>
+        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
         <p class="card-text">Inputs:</p>
         <ul>
             <li>title: The title of the game to add.</li>
@@ -34,6 +52,7 @@
     <div class="card-body">
         <h5 class="card-title">PUT /games/update/{id}/{title}/{developer}/{publisher}/{release_date}</h5>
         <p class="card-text">Returns: A boolean, true if the game was updated, false if it failed.</p>
+        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
         <p class="card-text">Inputs:</p>
         <ul>
             <li>id: The id of the game to update.</li>
@@ -48,6 +67,7 @@
     <div class="card-body">
         <h5 class="card-title">DELETE /games/delete/{id}</h5>
         <p class="card-text">Returns: A boolean, true if the game was deleted, false if it failed.</p>
+        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
         <p class="card-text">Inputs:</p>
         <ul>
             <li>id: The id of the game to delete.</li>

@@ -7,6 +7,10 @@ require 'vendor/autoload.php';
 require_once 'DLL/gamemanager.php';
 require_once 'DLL/adminmanager.php';
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Headers: Authorization, Token');
+
 $configuration = [
     'settings' => [
         'displayErrorDetails' => true,
@@ -94,7 +98,7 @@ $app->post('/admin/add', function (Request $request, Response $response, array $
     }
 });
 
-$app->post('/admin/login', function (Request $request, Response $response, array $args) {
+$app->get('/admin/login', function (Request $request, Response $response, array $args) {
     global $adminmanager;
 
     $username = $_SERVER['PHP_AUTH_USER'];

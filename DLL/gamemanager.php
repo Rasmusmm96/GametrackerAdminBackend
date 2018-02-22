@@ -1,8 +1,5 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, PUT, DELETE');
-
 require_once "DAL/gamedataaccess.php";
 require_once "DLL/commonfunctions.php";
 
