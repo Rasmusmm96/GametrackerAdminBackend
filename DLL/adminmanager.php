@@ -7,13 +7,13 @@ header('Access-Control-Allow-Methods: GET, POST');
 require_once "DAL/admindataaccess.php";
 require_once "DLL/commonfunctions.php";
 
-$dataaccess = new AdminDataAccess();
+$admindataaccess = new AdminDataAccess();
 $commonfunctions = new CommonFunctions();
 
 class AdminManager {
 
     public function addAdmin($username, $password, $token) {
-        global $dataaccess;
+        global $admindataaccess;
         global $commonfunctions;
 
         if (!$commonfunctions->validate($token)) {
@@ -22,14 +22,14 @@ class AdminManager {
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        return $dataaccess->addAdmin($username, $password);
+        return $admindataaccess->addAdmin($username, $password);
     }
 
     public function login($username, $password) {
-        global $dataaccess;
+        global $admindataaccess;
         global $commonfunctions;
 
-        $admin = $dataaccess->getAdminByUsername($username);
+        $admin = $admindataaccess->getAdminByUsername($username);
 
         if(password_verify($password, $admin['Password'])) {
             $token = (new Builder())->setIssuer('GameTracker') // Configures the issuer (iss claim)

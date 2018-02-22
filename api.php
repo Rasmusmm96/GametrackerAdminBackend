@@ -16,6 +16,7 @@ $c = new \Slim\Container($configuration);
 $app = new App($c);
 $gamemanager = new GameManager();
 $adminmanager = new AdminManager();
+$headers = getallheaders();
 
 $app->get("/", function (Request $request, Response $response) {
     return $response->withStatus(200)->write(file_get_contents("docs.html"));
@@ -23,13 +24,15 @@ $app->get("/", function (Request $request, Response $response) {
 
 $app->post('/games/add/{title}/{developer}/{publisher}/{release_date}', function (Request $request, Response $response, array $args) {
     global $gamemanager;
+    global $headers;
 
+    $token = $headers['Token'];
     $title = $args['title'];
     $developer = $args['developer'];
     $publisher = $args['publisher'];
     $releasedate = $args['release_date'];
 
-    $result = $gamemanager->addGame($title, $developer, $publisher, $releasedate);
+    $result = $gamemanager->addGame($title, $developer, $publisher, $releasedate, $token);
 
     if ($result) {
         return $response->withStatus(200);
@@ -40,14 +43,16 @@ $app->post('/games/add/{title}/{developer}/{publisher}/{release_date}', function
 
 $app->put('/games/update/{id}/{title}/{developer}/{publisher}/{release_date}', function (Request $request, Response $response, array $args) {
     global $gamemanager;
+    global $headers;
 
+    $token = $headers['Token'];
     $id = $args['id'];
     $title = $args['title'];
     $developer = $args['developer'];
     $publisher = $args['publisher'];
     $releasedate = $args['release_date'];
 
-    $result = $gamemanager->updateGame($id, $title, $developer, $publisher, $releasedate);
+    $result = $gamemanager->updateGame($id, $title, $developer, $publisher, $releasedate, $token);
 
     if ($result) {
         return $response->withStatus(200);
@@ -58,10 +63,12 @@ $app->put('/games/update/{id}/{title}/{developer}/{publisher}/{release_date}', f
 
 $app->delete('/games/delete/{id}', function (Request $request, Response $response, array $args) {
     global $gamemanager;
+    global $headers;
 
+    $token = $headers['Token'];
     $id = $args['id'];
 
-    $result = $gamemanager->deleteGame($id);
+    $result = $gamemanager->deleteGame($id, $token);
 
     if ($result) {
         return $response->withStatus(200);
@@ -72,11 +79,13 @@ $app->delete('/games/delete/{id}', function (Request $request, Response $respons
 
 $app->post('/admin/add', function (Request $request, Response $response, array $args) {
     global $adminmanager;
+    global $headers;
 
+    $token = $headers['Token'];
     $username = $_SERVER['PHP_AUTH_USER'];
     $password = $_SERVER['PHP_AUTH_PW'];
 
-    $result = $adminmanager->addAdmin($username, $password);
+    $result = $adminmanager->addAdmin($username, $password, $token);
 
     if ($result) {
         return $response->withStatus(200);

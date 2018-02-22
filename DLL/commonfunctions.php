@@ -9,7 +9,11 @@ class CommonFunctions {
     public function validate($token) {
         global $tokenId;
 
-        $token = (new Parser())->parse((string) $token);
+        try {
+            $token = (new Parser())->parse((string) $token);
+        } catch (InvalidArgumentException $iax) {
+            return false;
+        }
 
         $data = new ValidationData(); // It will use the current time to validate (iat, nbf and exp)
         $data->setIssuer('GameTracker');

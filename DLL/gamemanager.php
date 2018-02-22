@@ -4,27 +4,44 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, PUT, DELETE');
 
 require_once "DAL/gamedataaccess.php";
+require_once "DLL/commonfunctions.php";
 
-$dataaccess = new GameDataAccess();
+$gamedataaccess = new GameDataAccess();
+$commonfunctions = new CommonFunctions();
 
 class GameManager {
 
-    public function addGame($title, $developer, $publisher, $releasedate) {
-        global $dataaccess;
+    public function addGame($title, $developer, $publisher, $releasedate, $token) {
+        global $gamedataaccess;
+        global $commonfunctions;
 
-        return $dataaccess->addGame($title, $developer, $publisher, $releasedate);
+        if (!$commonfunctions->validate($token)) {
+            return false;
+        }
+
+        return $gamedataaccess->addGame($title, $developer, $publisher, $releasedate);
     }
 
-    public function updateGame($id, $title, $developer, $publisher, $releasedate) {
-        global $dataaccess;
+    public function updateGame($id, $title, $developer, $publisher, $releasedate, $token) {
+        global $gamedataaccess;
+        global $commonfunctions;
 
-        return $dataaccess->updateGame($id, $title, $developer, $publisher, $releasedate);
+        if (!$commonfunctions->validate($token)) {
+            return false;
+        }
+
+        return $gamedataaccess->updateGame($id, $title, $developer, $publisher, $releasedate);
     }
 
-    public function deleteGame($id) {
-        global $dataaccess;
+    public function deleteGame($id, $token) {
+        global $gamedataaccess;
+        global $commonfunctions;
 
-        return $dataaccess->deleteGame($id);
+        if (!$commonfunctions->validate($token)) {
+            return false;
+        }
+
+        return $gamedataaccess->deleteGame($id);
     }
 }
 
