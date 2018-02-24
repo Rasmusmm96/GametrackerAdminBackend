@@ -9,7 +9,7 @@ require_once 'DLL/adminmanager.php';
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-header('Access-Control-Allow-Headers: Authorization, Token');
+header('Access-Control-Allow-Headers: Authorization, Token, Content-Type');
 
 $configuration = [
     'settings' => [
@@ -26,15 +26,15 @@ $app->get("/", function (Request $request, Response $response) {
     return $response->withStatus(200)->write(file_get_contents("docs.html"));
 });
 
-$app->post('/games/add/{title}/{developer}/{publisher}/{release_date}', function (Request $request, Response $response, array $args) {
+$app->post('/games/add', function (Request $request, Response $response, array $args) {
     global $gamemanager;
     global $headers;
 
     $token = $headers['Token'];
-    $title = $args['title'];
-    $developer = $args['developer'];
-    $publisher = $args['publisher'];
-    $releasedate = $args['release_date'];
+    $title = $_POST['title'];
+    $developer = $_POST['developer'];
+    $publisher = $_POST['publisher'];
+    $releasedate = $_POST['release_date'];
 
     $result = $gamemanager->addGame($title, $developer, $publisher, $releasedate, $token);
 
@@ -45,16 +45,16 @@ $app->post('/games/add/{title}/{developer}/{publisher}/{release_date}', function
     }
 });
 
-$app->put('/games/update/{id}/{title}/{developer}/{publisher}/{release_date}', function (Request $request, Response $response, array $args) {
+$app->post('/games/update', function (Request $request, Response $response, array $args) {
     global $gamemanager;
     global $headers;
 
     $token = $headers['Token'];
-    $id = $args['id'];
-    $title = $args['title'];
-    $developer = $args['developer'];
-    $publisher = $args['publisher'];
-    $releasedate = $args['release_date'];
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $developer = $_POST['developer'];
+    $publisher = $_POST['publisher'];
+    $releasedate = $_POST['release_date'];
 
     $result = $gamemanager->updateGame($id, $title, $developer, $publisher, $releasedate, $token);
 
@@ -86,8 +86,8 @@ $app->post('/admin/add', function (Request $request, Response $response, array $
     global $headers;
 
     $token = $headers['Token'];
-    $username = $_SERVER['PHP_AUTH_USER'];
-    $password = $_SERVER['PHP_AUTH_PW'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     $result = $adminmanager->addAdmin($username, $password, $token);
 

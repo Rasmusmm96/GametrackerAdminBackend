@@ -20,8 +20,11 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">GET /admin/login</h5>
-        <p class="card-text">Returns: A token in JSON format</p>
-        <p class="card-text">Usage: Append a Authorization header with Basic Auth.</p>
+        <p class="card-text">Returns: A token in JSON format, expires after an hour</p>
+        <p class="card-text">Headers:</p>
+        <ul>
+            <li>Authorization: {Basic Auth}</li>
+        </ul>
         <p class="card-text">Inputs: None</p>
     </div>
 </div>
@@ -29,16 +32,27 @@
     <div class="card-body">
         <h5 class="card-title">POST /admin/add/</h5>
         <p class="card-text">Returns: A boolean, true if the admin was created, false if it failed.</p>
-        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
-        <p class="card-text">Usage: Append a Authorization header with Basic Auth of the admin to be added.</p>
-        <p class="card-text">Inputs: None</p>
+        <p class="card-text">Headers:</p>
+        <ul>
+            <li>Token: {Your admin token}</li>
+            <li>Content-Type: application/x-www-form-urlencoded</li>
+        </ul>
+        <p class="card-text">Inputs:</p>
+        <ul>
+            <li>username: The username of the admin to add.</li>
+            <li>password: The password of the admin to add.</li>
+        </ul>
     </div>
 </div>
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">POST /games/add/{title}/{developer}/{publisher}/{release_date}</h5>
+        <h5 class="card-title">POST /games/add</h5>
         <p class="card-text">Returns: A boolean, true if the game was created, false if it failed.</p>
-        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
+        <p class="card-text">Headers:</p>
+        <ul>
+            <li>Token: {Your admin token}</li>
+            <li>Content-Type: application/x-www-form-urlencoded</li>
+        </ul>
         <p class="card-text">Inputs:</p>
         <ul>
             <li>title: The title of the game to add.</li>
@@ -50,9 +64,13 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">PUT /games/update/{id}/{title}/{developer}/{publisher}/{release_date}</h5>
+        <h5 class="card-title">POST /games/update</h5>
         <p class="card-text">Returns: A boolean, true if the game was updated, false if it failed.</p>
-        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
+        <p class="card-text">Headers:</p>
+        <ul>
+            <li>Token: {Your admin token}</li>
+            <li>Content-Type: application/x-www-form-urlencoded</li>
+        </ul>
         <p class="card-text">Inputs:</p>
         <ul>
             <li>id: The id of the game to update.</li>
@@ -67,7 +85,10 @@
     <div class="card-body">
         <h5 class="card-title">DELETE /games/delete/{id}</h5>
         <p class="card-text">Returns: A boolean, true if the game was deleted, false if it failed.</p>
-        <p class="card-text">Usage: Append a Token header with your Admin Token.</p>
+        <p class="card-text">Headers:</p>
+        <ul>
+            <li>Token: {Your admin token}</li>
+        </ul>
         <p class="card-text">Inputs:</p>
         <ul>
             <li>id: The id of the game to delete.</li>
