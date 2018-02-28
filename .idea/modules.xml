@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GametrackerAdminBackend.iml" filepath="$PROJECT_DIR$/.idea/GametrackerAdminBackend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../GametrackerPublicBackend/.idea/GametrackerBackend.iml" filepath="$PROJECT_DIR$/../GametrackerPublicBackend/.idea/GametrackerBackend.iml" />
     </modules>
   </component>
 </project>

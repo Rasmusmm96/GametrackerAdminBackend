@@ -6,6 +6,7 @@ use Slim\App;
 require 'vendor/autoload.php';
 require_once 'DLL/gamemanager.php';
 require_once 'DLL/adminmanager.php';
+require_once 'BE/game.php';
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
@@ -16,11 +17,11 @@ $configuration = [
         'displayErrorDetails' => true,
     ],
 ];
+
 $c = new \Slim\Container($configuration);
 $app = new App($c);
 $gamemanager = new GameManager();
 $adminmanager = new AdminManager();
-$headers = getallheaders();
 
 $app->get("/", function (Request $request, Response $response) {
     return $response->withStatus(200)->write(file_get_contents("docs.html"));
@@ -28,15 +29,20 @@ $app->get("/", function (Request $request, Response $response) {
 
 $app->post('/games/add', function (Request $request, Response $response, array $args) {
     global $gamemanager;
-    global $headers;
 
-    $token = $headers['Token'];
-    $title = $_POST['title'];
-    $developer = $_POST['developer'];
-    $publisher = $_POST['publisher'];
-    $releasedate = $_POST['release_date'];
 
-    $result = $gamemanager->addGame($title, $developer, $publisher, $releasedate, $token);
+    $token = $request->getHeaderLine('Token');
+    $game = new Game(
+        null,
+        $_POST['title'],
+        $_POST['developer'],
+        $_POST['publisher'],
+        $_POST['release_date'],
+        $_POST['twitter_handle'],
+        $_POST['youtube_id']
+        );
+
+    $result = $gamemanager->addGame($game, $token);
 
     if ($result) {
         return $response->withStatus(200);
@@ -47,16 +53,20 @@ $app->post('/games/add', function (Request $request, Response $response, array $
 
 $app->post('/games/update', function (Request $request, Response $response, array $args) {
     global $gamemanager;
-    global $headers;
 
-    $token = $headers['Token'];
-    $id = $_POST['id'];
-    $title = $_POST['title'];
-    $developer = $_POST['developer'];
-    $publisher = $_POST['publisher'];
-    $releasedate = $_POST['release_date'];
+    $token = $request->getHeaderLine('Token');
+    $game = new Game(
+        $_POST['id'],
+        $_POST['title'],
+        $_POST['developer'],
+        $_POST['publisher'],
+        $_POST['release_date'],
+        $_POST['twitter_handle'],
+        $_POST['youtube_id']
+    );
 
-    $result = $gamemanager->updateGame($id, $title, $developer, $publisher, $releasedate, $token);
+
+    $result = $gamemanager->updateGame($game, $token);
 
     if ($result) {
         return $response->withStatus(200);
@@ -67,9 +77,8 @@ $app->post('/games/update', function (Request $request, Response $response, arra
 
 $app->delete('/games/delete/{id}', function (Request $request, Response $response, array $args) {
     global $gamemanager;
-    global $headers;
 
-    $token = $headers['Token'];
+    $token = $request->getHeaderLine('Token');
     $id = $args['id'];
 
     $result = $gamemanager->deleteGame($id, $token);
@@ -83,9 +92,8 @@ $app->delete('/games/delete/{id}', function (Request $request, Response $respons
 
 $app->post('/admin/add', function (Request $request, Response $response, array $args) {
     global $adminmanager;
-    global $headers;
 
-    $token = $headers['Token'];
+    $token = $request->getHeaderLine('Token');
     $username = $_POST['username'];
     $password = $_POST['password'];
 

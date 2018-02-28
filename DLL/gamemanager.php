@@ -8,7 +8,7 @@ $commonfunctions = new CommonFunctions();
 
 class GameManager {
 
-    public function addGame($title, $developer, $publisher, $releasedate, $token) {
+    public function addGame($game, $token) {
         global $gamedataaccess;
         global $commonfunctions;
 
@@ -16,10 +16,10 @@ class GameManager {
             return false;
         }
 
-        return $gamedataaccess->addGame($title, $developer, $publisher, $releasedate);
+        return $gamedataaccess->addGame($game);
     }
 
-    public function updateGame($id, $title, $developer, $publisher, $releasedate, $token) {
+    public function updateGame($game, $token) {
         global $gamedataaccess;
         global $commonfunctions;
 
@@ -27,7 +27,7 @@ class GameManager {
             return false;
         }
 
-        return $gamedataaccess->updateGame($id, $title, $developer, $publisher, $releasedate);
+        return $gamedataaccess->updateGame($game);
     }
 
     public function deleteGame($id, $token) {

@@ -1,4 +1,7 @@
 <?php
+
+require_once 'BE/game.php';
+
 class GameDataAccess {
 
     private function getDatabase() {
@@ -12,14 +15,19 @@ class GameDataAccess {
         return $con;
     }
 
-    public function addGame($title, $developer, $publisher, $releasedate) {
+    public function addGame($game) {
         $db = $this->getDatabase();
 
-        if ($title == null)
+        if ($game->title == null)
             return false;
 
-        $statement = 'INSERT INTO Games (Title, Developer, Publisher, Release_Date)
-                      VALUES ("'. $title .'", "'. $developer .'", "'. $publisher .'", "'. $releasedate .'")';
+        $statement = 'INSERT INTO Games (Title, Developer, Publisher, Release_Date, Twitter_Handle, Youtube_Id)
+                      VALUES ("'. $game->title .'",
+                              "'. $game->developer .'", 
+                              "'. $game->publisher .'", 
+                              "'. $game->releasedate .'",
+                              "'. $game->twitter .'",
+                              "'. $game->youtube .'")';
 
         $db->query($statement);
 
@@ -30,18 +38,20 @@ class GameDataAccess {
         }
     }
 
-    public function updateGame($id, $title, $developer, $publisher, $releasedate) {
+    public function updateGame($game) {
         $db = $this->getDatabase();
 
-        if ($title == null || $id == null)
+        if ($game->title == null || $game->id == null)
             return false;
 
         $statement = 'UPDATE Games
-                      SET Title = "'. $title .'", 
-                          Developer = "'. $developer .'", 
-                          Publisher = "'. $publisher .'", 
-                          Release_Date = "'. $releasedate .'"
-                      WHERE ID = "'. $id .'"';
+                      SET Title = "'. $game->title .'", 
+                          Developer = "'. $game->developer .'", 
+                          Publisher = "'. $game->publisher .'", 
+                          Release_Date = "'. $game->releasedate .'",
+                          Twitter_Handle = "'. $game->twitter .'",
+                          Youtube_Id = "'. $game->youtube .'"
+                      WHERE ID = "'. $game->id .'"';
 
         $db->query($statement);
 
